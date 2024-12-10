@@ -1,11 +1,13 @@
---Fichero de borrado de tablas del grupo C02
-DROP TABLE fichero;
-DROP TABLE peticion;
-DROP TABLE tarea;
-DROP TABLE participan;
-DROP TABLE usuario;
-DROP TABLE proyecto;
-DROP SEQUENCE idpeticion_seq;
-DROP SEQUENCE idtarea_seq;
-DROP SEQUENCE idproyecto_seq;
-DROP SEQUENCE idfichero_seq;
+-- Table deletion file
+
+DROP TABLE project_file;
+DROP TABLE request;
+DROP TABLE task;
+DROP TABLE participate;
+DROP TABLE app_user;
+DROP TABLE project;
+
+DROP SEQUENCE request_id_seq;
+DROP SEQUENCE task_id_seq;
+DROP SEQUENCE project_id_seq;
+DROP SEQUENCE file_id_seq;

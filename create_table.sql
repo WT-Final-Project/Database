@@ -1,94 +1,90 @@
---Fichero de creacion de tablas del grupo C02
+-- Table creation file
 
-
-CREATE SEQUENCE idproyecto_seq
+CREATE SEQUENCE project_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
     MAXVALUE 999
     NO CYCLE;
 
--- Tabla proyecto
-CREATE TABLE proyecto (
-    idProyecto integer DEFAULT nextval('idproyecto_seq') PRIMARY KEY,
-    nombre varchar(30) NOT NULL CHECK (nombre <> ''),
-    descripcion varchar(300)
+-- Project table
+CREATE TABLE project (
+    projectId integer DEFAULT nextval('project_id_seq') PRIMARY KEY,
+    projectName varchar(30) NOT NULL CHECK (projectName <> ''),
+    description varchar(300)
 );
 
--- Tabla usuario
-CREATE TABLE usuario (
-    nombreUsuario varchar(25) PRIMARY KEY  CHECK (nombreUsuario <> ''),
-    nombre varchar(15) NOT NULL CHECK (nombre <> ''),
-    contrasenya varchar(10) NOT NULL CHECK (contrasenya <> ''),
-    correo varchar(20) NOT NULL CHECK (correo <> ''),
-    apellidos varchar(25) NOT NULL CHECK (apellidos <> '')
+-- User table
+CREATE TABLE app_user (
+    username varchar(25) PRIMARY KEY CHECK (username <> ''),
+    firstName varchar(15) NOT NULL CHECK (firstName <> ''),
+    userPassword varchar(10) NOT NULL CHECK (userPassword <> ''),
+    email varchar(20) NOT NULL CHECK (email <> ''),
+    lastName varchar(25) NOT NULL CHECK (lastName <> '')
 );
 
--- Tabla participan
-CREATE TABLE  participan (
-    idProyecto integer,
-    nombreUsuario varchar(25),
-    rango varchar(12) NOT NULL, -- Posibles lider y participante
-    PRIMARY KEY (idProyecto, nombreUsuario),
-    FOREIGN KEY (idProyecto) REFERENCES proyecto (idProyecto) ON DELETE CASCADE,
-    FOREIGN KEY (nombreUsuario) REFERENCES usuario (nombreUsuario)
+-- Participate table
+CREATE TABLE participate (
+    projectId integer,
+    username varchar(25),
+    userRole varchar(12) NOT NULL, -- Possible values: leader and participant
+    PRIMARY KEY (projectId, username),
+    FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE CASCADE,
+    FOREIGN KEY (username) REFERENCES app_user (username)
 );
 
--- Secuencia para idTarea va desde 1 hasta 999
-CREATE SEQUENCE idtarea_seq
+-- Sequence for taskId ranges from 1 to 999
+CREATE SEQUENCE task_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
     MAXVALUE 999
     NO CYCLE;
 
-
--- Tabla tarea
-CREATE TABLE tarea (
-    idTarea integer DEFAULT nextval('idtarea_seq') PRIMARY KEY,
-    idProyecto integer NOT NULL,
-    nombreUsuario varchar(25) NOT NULL,
-    titulo varchar(25) NOT NULL,
-    descripcion varchar(300) NOT NULL,
-    fechaVencimineto DATE NOT NULL,
-    completada integer CHECK (completada IN (0, 1)), --0 es no completada
-    FOREIGN KEY (idProyecto) REFERENCES proyecto (idProyecto)  ON DELETE CASCADE,
-    FOREIGN KEY (nombreUsuario) REFERENCES usuario (nombreUsuario)
+-- Task table
+CREATE TABLE task (
+    taskId integer DEFAULT nextval('task_id_seq') PRIMARY KEY,
+    projectId integer NOT NULL,
+    username varchar(25) NOT NULL,
+    taskTitle varchar(25) NOT NULL,
+    description varchar(300) NOT NULL,
+    dueDate DATE NOT NULL,
+    completed integer CHECK (completed IN (0, 1)), -- 0 means not completed
+    FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE CASCADE,
+    FOREIGN KEY (username) REFERENCES app_user (username)
 );
 
--- Secuencia para idPeticion va desde 1 hasta 999
-CREATE SEQUENCE idpeticion_seq
+-- Sequence for requestId ranges from 1 to 999
+CREATE SEQUENCE request_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
     MAXVALUE 999
     NO CYCLE;
 
-
--- Tabla peticion
-CREATE TABLE peticion (
-    idPeticion integer DEFAULT nextval('idpeticion_seq') PRIMARY KEY,
-    idProyecto integer NOT NULL,
-    nombreUsuario varchar(25) NOT NULL,
-    descripcion varchar(300) NOT NULL,
-    titulo varchar(25) NOT NULL,
-    FOREIGN KEY (idProyecto) REFERENCES proyecto (idProyecto)  ON DELETE CASCADE,
-    FOREIGN KEY (nombreUsuario) REFERENCES usuario (nombreUsuario)
+-- Request table
+CREATE TABLE request (
+    requestId integer DEFAULT nextval('request_id_seq') PRIMARY KEY,
+    projectId integer NOT NULL,
+    username varchar(25) NOT NULL,
+    description varchar(300) NOT NULL,
+    requestTitle varchar(25) NOT NULL,
+    FOREIGN KEY (projectId) REFERENCES project (projectId) ON DELETE CASCADE,
+    FOREIGN KEY (username) REFERENCES app_user (username)
 );
 
--- Secuencia para idFichero va desde 1 hasta 999
-CREATE SEQUENCE idfichero_seq
+-- Sequence for fileId ranges from 1 to 999
+CREATE SEQUENCE file_id_seq
     INCREMENT 1
     START 1
     MINVALUE 1
     MAXVALUE 999
     NO CYCLE;
 
-
--- Tabla fichero
-CREATE TABLE fichero (
-    idFichero integer DEFAULT nextval('idfichero_seq') PRIMARY KEY,
-    nombre varchar(20) NOT NULL,
-    idTarea integer NOT NULL,
-    FOREIGN KEY (idTarea) REFERENCES tarea (idTarea)
+-- File table
+CREATE TABLE project_file (
+    fileId integer DEFAULT nextval('file_id_seq') PRIMARY KEY,
+    fileName varchar(20) NOT NULL,
+    taskId integer NOT NULL,
+    FOREIGN KEY (taskId) REFERENCES task (taskId)
 );
