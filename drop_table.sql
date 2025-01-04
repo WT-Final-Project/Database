@@ -1,13 +1,13 @@
 -- Table deletion file
 
-DROP TABLE project_file;
-DROP TABLE request;
-DROP TABLE task;
-DROP TABLE participate;
-DROP TABLE app_user;
-DROP TABLE project;
+DROP TABLE IF EXISTS project_file;
+DROP TABLE IF EXISTS request;
+DROP TABLE IF EXISTS task;
+DROP TABLE IF EXISTS participate;
+DROP TABLE IF EXISTS app_user;
+DROP TABLE IF EXISTS project;
 
-DROP SEQUENCE request_id_seq;
-DROP SEQUENCE task_id_seq;
-DROP SEQUENCE project_id_seq;
-DROP SEQUENCE file_id_seq;
+DROP SEQUENCE IF EXISTS request_id_seq;
+DROP SEQUENCE IF EXISTS task_id_seq;
+DROP SEQUENCE IF EXISTS project_id_seq;
+DROP SEQUENCE IF EXISTS file_id_seq;
