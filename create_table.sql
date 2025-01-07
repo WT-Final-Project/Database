@@ -39,21 +39,11 @@ CREATE TABLE task (
     FOREIGN KEY (username) REFERENCES app_user (username)
 );
 
--- Request table
-CREATE TABLE request (
-    requestid SERIAL PRIMARY KEY,  -- Handled by Supabase
-    projectid integer NOT NULL,
-    username varchar(25) NOT NULL,
-    description varchar(300) NOT NULL,
-    requesttitle varchar(25) NOT NULL,
-    FOREIGN KEY (projectid) REFERENCES project (projectid) ON DELETE CASCADE,
-    FOREIGN KEY (username) REFERENCES app_user (username)
-);
-
 -- File table
 CREATE TABLE project_file (
     fileid SERIAL PRIMARY KEY,  -- Handled by Supabase
-    fileName varchar(20) NOT NULL,
+    filePath TEXT NOT NULL,
+    name varchar(100) NOT NULL,
     taskid integer NOT NULL,
     FOREIGN KEY (taskid) REFERENCES task (taskid)
 );
