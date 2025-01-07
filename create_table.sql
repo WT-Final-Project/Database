@@ -13,7 +13,6 @@ CREATE TABLE app_user (
     username varchar(25) UNIQUE NOT NULL,  -- Enforce uniqueness for username
     firstname varchar(15) NOT NULL,
     lastname varchar(25) NOT NULL,
-    email varchar(255) NOT NULL UNIQUE  -- Enforce email uniqueness
 );
 
 -- Participate table
