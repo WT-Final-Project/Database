@@ -12,7 +12,7 @@ CREATE TABLE app_user (
     id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     username varchar(25) UNIQUE NOT NULL,  -- Enforce uniqueness for username
     firstname varchar(15) NOT NULL,
-    lastname varchar(25) NOT NULL,
+    lastname varchar(25) NOT NULL
 );
 
 -- Participate table
